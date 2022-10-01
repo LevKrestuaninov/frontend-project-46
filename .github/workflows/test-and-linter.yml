@@ -14,8 +14,8 @@ jobs:
       - run: make install
       - name: check linter status
         run: make lint
-      - name: run test
-        run: make test
+      - name: run test with coverage
+        run: make test-coverage
       - name: codeclimate coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
