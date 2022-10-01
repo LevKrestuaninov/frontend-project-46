@@ -4,22 +4,21 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: install
+      - name: clone repo
+        uses: actions/checkout@v2
+      - name: installation
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
       - run: make install
-      - name: linter
+      - name: check linter status
         run: make lint
-      - name: test
+      - name: run test
         run: make test
-      - name: cc_coverage
-        uses: paambaati/codeclimate-action@v3
+      - name: codeclimate coverage
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          run: make test-coverage
 
   
