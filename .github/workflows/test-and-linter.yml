@@ -1,19 +1,18 @@
 name: tests
 on: push
-
 jobs:
-  build:
+  install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: install
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
-        run: make install
-      - name: test
-        run: make test
+      - run: make install
       - name: linter
         run: make lint
+      - name: test
+        run: make test
+  
