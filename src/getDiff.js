@@ -3,7 +3,9 @@ import _ from 'lodash';
 const getDiff = (file1, file2) => {
   const [keys1, keys2] = [Object.keys(file1), Object.keys(file2)];
   const sortedKeys = _.union(keys1, keys2).sort();
-
+  if (_.isEmpty([...keys1, ...keys2])) {
+    return '{ }';
+  }
   const diff = { };
 
   sortedKeys.forEach((key) => {
