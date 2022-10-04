@@ -3,49 +3,36 @@ import _ from 'lodash';
 const getDiff = (file1, file2) => {
   const [keys1, keys2] = [Object.keys(file1), Object.keys(file2)];
   const sortedKeys = _.union(keys1, keys2).sort();
-  if (_.isEmpty([...keys1, ...keys2])) {
-    return '{ }';
-  }
   const diff = { };
 
   sortedKeys.forEach((key) => {
-    const value1 = file1[key];
-    const value2 = file2[key];
+    const [value1, value2] = [file1[key], file2[key]];
 
-    if (_.isEqual(value1, value2)) {
-      diff[key] = 'equal';
-    } else if (value1 === undefined) {
-      diff[key] = 'added';
-    } else if (value2 === undefined) {
-      diff[key] = 'deleted';
-    } else {
-      diff[key] = 'changed';
+    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
+      diff[key] = getDiff(value1, value2);
+      return diff;
     }
-  });
 
-  const result = [];
-
-  sortedKeys.forEach((key) => {
-    switch (diff[key]) {
-      case 'equal':
-        result.push(`  ${key}: ${file1[key]}`);
+    switch (`${value1}${value2}`) {
+      case (`${value1}${value1}`):
+        diff[key] = { value: value1, diff_status: 'equal' };
         break;
-      case 'deleted':
-        result.push(`- ${key}: ${file1[key]}`);
+      case (`${undefined}${value2}`):
+        diff[key] = { value: value2, diff_status: 'added' };
         break;
-      case 'added':
-        result.push(`+ ${key}: ${file2[key]}`);
+      case (`${value1}${undefined}`):
+        diff[key] = { value: value1, diff_status: 'deleted' };
         break;
-      case 'changed':
-        result.push(`- ${key}: ${file1[key]}`);
-        result.push(`+ ${key}: ${file2[key]}`);
+      case (`${value1}${value2}`):
+        diff[key] = { value: value1, value2, diff_status: 'changed' };
         break;
       default:
-        console.log('wtf');
+        return (console.error('Unexpected values'));
     }
-  });
 
-  return (`{\n  ${result.join('\n  ')}\n}`);
+    return diff;
+  });
+  return diff;
 };
 
 export default getDiff;
