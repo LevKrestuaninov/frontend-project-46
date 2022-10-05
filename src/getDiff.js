@@ -29,30 +29,3 @@ const getDiff = (file1, file2) => {
 };
 
 export default getDiff;
-
-
-
-
-// if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
-//   diff[key] = getDiff(value1, value2);
-//   return diff;
-// }
-
-// switch (`${value1}${value2}`) {
-//   case (`${value1}${value1}`):
-//     diff[key] = { value: value1, diff_status: 'equal' };
-//     break;
-//   case (`${undefined}${value2}`):
-//     diff[key] = { value: value2, diff_status: 'added' };
-//     break;
-//   case (`${value1}${undefined}`):
-//     diff[key] = { value: value1, diff_status: 'deleted' };
-//     break;
-//   case (`${value1}${value2}`):
-//     diff[key] = { value: value1, value2, diff_status: 'changed' };
-//     break;
-//   default:
-//     return (console.error('Unexpected values'));
-// }
-
-// return diff;
