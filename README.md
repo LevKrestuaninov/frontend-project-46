@@ -19,6 +19,6 @@ make install
 make test
 ```
 
-## Demonstration
+## Demonstration 
 
 [![asciicast](https://asciinema.org/a/HrIzcq4eL2kCXFzdYZlAZziwc.svg)](https://asciinema.org/a/HrIzcq4eL2kCXFzdYZlAZziwc)
