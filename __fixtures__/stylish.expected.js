@@ -52,4 +52,4 @@ const plain = `{
   + verbose: true
 }`;
 
-export { nested, plain }
+export { nested, plain };

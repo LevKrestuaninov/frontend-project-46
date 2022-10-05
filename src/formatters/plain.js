@@ -1,16 +1,15 @@
 import _ from 'lodash';
 
 const checkValue = (value) => {
-  let returnValue = null;
   if (_.isPlainObject(value) || _.isString(value)) {
-    returnValue = _.isString(value) ? `'${value}'` : '[complex value]';
+    return _.isString(value) ? `'${value}'` : '[complex value]';
   }
 
-  return returnValue;
+  return null;
 };
 
 const plain = (diff, path = []) => {
-  const sorted = Object.entries(diff).sort((a, b) => a[0] < b[0]);
+  const sorted = _.sortBy(Object.entries(diff));
   const lines = sorted.reduce((acc, [key, value]) => {
     const currentPath = [...path, key];
     const status = (value || { }).diff_status;

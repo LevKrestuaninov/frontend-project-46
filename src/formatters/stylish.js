@@ -14,7 +14,7 @@ const stylish = (diff) => {
 
     const endBracketPadding = '    '.repeat(depth);
     const padding = `${'    '.repeat(depth + 1)}`;
-    const sorted = Object.entries(nest).sort((a, b) => a[0] < b[0]);
+    const sorted = _.sortBy(Object.entries(nest));
 
     const lines = sorted.reduce((acc, [key, value]) => {
       const lineMaker = (k = key, v = value, p = padding) => `${p}${k}: ${iter(v, depth + 1)}`;
