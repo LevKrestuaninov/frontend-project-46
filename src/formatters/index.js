@@ -1,13 +1,10 @@
+import _ from 'lodash';
 import stylish from './stylish.js';
 import plain from './plain.js';
 import json from './json.js';
 
 const returnFormatter = (format) => {
-  if (!format) {
-    return stylish;
-  }
-
-  switch (format.format) {
+  switch ((format.format ?? format)) {
     case ('plain'):
       return plain;
     case ('json'):
