@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "description": "Show difference of two incomming files",
-  "version": "0.0.1",
+  "version": "1.1.0",
   "main": "index.js",
   "bin": {
     "gendiff": "./bin/gendiff.js"
