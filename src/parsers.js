@@ -1,32 +1,22 @@
-import * as fs from 'fs';
-import { extname } from 'path';
-import { load } from 'js-yaml';
+import getJSONData from './parsers/json.js';
+import getYAMLData from './parsers/yaml.js';
 
-const checkAccess = (path) => {
-  try {
-    fs.accessSync(path);
-    return true;
-  } catch (err) {
-    return false;
+const getParser = (ext) => {
+  if (!ext) {
+    console.error('No extension!');
+    return null;
   }
-};
 
-const getJSONData = (path) => JSON.parse(fs.readFileSync(path, 'utf-8'));
-
-const getYAMLData = (path) => load(fs.readFileSync(path, 'utf-8'));
-
-const parsers = (path) => {
-  if (checkAccess(path)) {
-    const format = extname(path).toLowerCase();
-    if (!['.json', '.yml', '.yaml'].includes(format)) {
-      console.log('This format is not acceptable');
+  switch (ext.toLowerCase()) {
+    case ('.json'):
+      return getJSONData;
+    case ('.yml'):
+    case ('.yaml'):
+      return getYAMLData;
+    default:
+      console.error('Unknown format');
       return null;
-    }
-    const data = format === '.json' ? getJSONData(path) : getYAMLData(path);
-    return data;
   }
-  console.log(`Check path and/or file. \nWrong path: ${path}`);
-  return null;
 };
 
-export default parsers;
+export default getParser;

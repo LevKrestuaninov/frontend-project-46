@@ -8,11 +8,14 @@ const returnFormatter = (format) => {
   }
 
   switch ((format.format ?? format)) {
+    case ('stylish'):
+      return stylish;
     case ('plain'):
       return plain;
     case ('json'):
       return json;
     default:
+      console.error('Wrong formatter.\nStylish selected by default.');
       return stylish;
   }
 };

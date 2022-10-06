@@ -1,13 +1,14 @@
 import getPath from './makePath.js';
-import parsers from './parsers.js';
+import getFile from './getFile.js';
 import getDiff from './getDiff.js';
 import getFormatter from './formatters/index.js';
 
-const getDifference = (path1, path2, formatter) => {
-  const [pathTo1, pathTo2] = [getPath(path1), getPath(path2)];
-  const [file1, file2] = [parsers(pathTo1), parsers(pathTo2)];
+const getDifference = (path1, path2, format) => {
+  const file1 = getFile(getPath(path1));
+  const file2 = getFile(getPath(path2));
+
   const diff = getDiff(file1, file2);
-  const toFormat = getFormatter(formatter);
+  const toFormat = getFormatter(format);
 
   return toFormat(diff);
 };
