@@ -7,7 +7,7 @@ const returnFormatter = (format) => {
     return stylish;
   }
 
-  switch ((format.format ?? format)) {
+  switch (format) {
     case ('stylish'):
       return stylish;
     case ('plain'):
