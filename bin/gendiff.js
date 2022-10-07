@@ -11,10 +11,12 @@ program
   .version('1.0.2')
   .argument('<filepath1>')
   .argument('<filepath2>')
-  .option('-f, --format <formatter>', 'output format', 'stylish')
-  .action((filepath1, filepath2, formatter) => {
-    console.log(getDifference(filepath1, filepath2, formatter));
-  })
+  .option('-f, --format <string>', 'output format', 'stylish')
   .parse(process.argv);
+
+const options = program.opts();
+const [arg1, arg2] = program.args;
+
+console.log(getDifference(arg1, arg2, options.format));
 
 export default getDifference;
