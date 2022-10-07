@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const stylish = (diff) => {
+const makeStylishDiff = (diff) => {
   const diffSymbol = {
     added: '  + ',
     deleted: '  - ',
@@ -40,4 +40,4 @@ const stylish = (diff) => {
   return iter(diff, 0, []);
 };
 
-export default stylish;
+export default makeStylishDiff;

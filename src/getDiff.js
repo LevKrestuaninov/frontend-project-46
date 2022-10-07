@@ -10,14 +10,14 @@ const getDiff = (file1, file2) => {
       return { ...acc, [key]: getDiff(value1, value2) };
     }
 
-    switch (`${value1}${value2}`) {
-      case (`${value1}${value1}`):
-        return { ...acc, [key]: { value: value1, diff_status: 'equal' } };
-      case (`${undefined}${value2}`):
+    switch (true) {
+      case (!_.has(file1, key)):
         return { ...acc, [key]: { value: value2, diff_status: 'added' } };
-      case (`${value1}${undefined}`):
+      case (!_.has(file2, key)):
         return { ...acc, [key]: { value: value1, diff_status: 'deleted' } };
-      case (`${value1}${value2}`):
+      case (_.isEqual(value1, value2)):
+        return { ...acc, [key]: { value: value1, diff_status: 'equal' } };
+      case (!_.isEqual(value1, value2)):
         return { ...acc, [key]: { value: value1, value2, diff_status: 'changed' } };
       default:
         return (console.error('Unexpected values'));
